@@ -1,6 +1,9 @@
+__author__ = 'irenebreck'
+
 import pymongo
 import sys
 import os
+import json
 
 from wsgiref.simple_server import make_server
 from pyramid.config import Configurator
@@ -19,18 +22,26 @@ connection = pymongo.MongoClient("mongodb://admin:manager@ds043378.mongolab.com:
 db = connection.velur                # attach to db
 col = db.userprofile                 # specify the colllection
 
-#col = connection.userprofile
-
-def hello_world(request):
-    return Response('Hello %(name)s!' % request.matchdict)
-
+from pyramid.view import view_config
+@view_config(route_name='UserProfile')
 def UserProfileFormView(request):
-       return (FileResponse('UserProfile.html'))
+   here    = os.path.dirname(__file__)
+   profile = os.path.join(here, 'static','UserProfile.html')
+   return (FileResponse(profile))
 
+@view_config(route_name='attendEvent')
+def getAttendance(request):
+   param         = request.params
+   event_choice  = param.get('event_choice')
+
+   all_leads = col.find({'events':event_choice})
+   return(json.dump(list(all_leads)))
+
+
+@view_config(route_name='SubmitUserProfile')
 def SubmitUserProfileView(request):
 
        params = request.params
-
 
        firstname = request.params['firstname']
        lastname  = request.params['lastname']
@@ -60,8 +71,7 @@ def SubmitUserProfileView(request):
                    'where'  : where
         })
 
-
-      #send_mail(request)
+       send_mail(request)
        return Response('ok %(name)s!' % request.matchdict)
 
 
@@ -69,8 +79,8 @@ def send_mail(request):
 
     mailer = Mailer( host='smtp.gmail.com',
                      port=587, #???
-                     username='your@emal.com',
-                     password='password',
+                     username='celiapan.noreply@gmail.com',
+                     password='1234test',
                      tls=True)
 
     if request.params.get('email') is not None:
@@ -88,13 +98,17 @@ def send_mail(request):
                        recipients = send_to,
                        body = send_this )
 
-    attachment = Attachment("velur1.pdf", "image/jpg",
-                        open("velur1.pdf", "rb"))
+    here = os.path.dirname(__file__)
+    att1 = os.path.join(here, 'static','velur1.pdf')
+    attachment = Attachment(att1, "image/jpg",
+                        open(att1, "rb"))
 
     message.attach(attachment)
 
-    attachment = Attachment("velur2.pdf", "image/jpg",
-                        open("velur2.pdf", "rb"))
+    here = os.path.dirname(__file__)
+    att2 = os.path.join(here, 'static','velur2.pdf')
+    attachment = Attachment(att2, "image/jpg",
+                        open(att2, "rb"))
 
     message.attach(attachment)
 
@@ -103,18 +117,8 @@ def send_mail(request):
     return Response(email)
 
 
-if __name__ == '__main__':
-    config = Configurator()
+def view_root(context, request):
+    return {'items':list(context), 'project':'pyramidapp'}
 
-    config.add_route('hello', '/hello/{name}')
-    config.add_view(hello_world, route_name='hello')
-
-    config.add_route('UserProfile', '/UserProfile/{name}')
-    config.add_view(UserProfileFormView, route_name='UserProfile')
-
-    config.add_route('SubmitUserProfile', '/SubmitUserProfile/{name}')
-    config.add_view(SubmitUserProfileView, route_name='SubmitUserProfile')
-
-    app = config.make_wsgi_app()
-    server = make_server('0.0.0.0', 8080, app)
-    server.serve_forever()
+def view_model(context, request):
+    return {'item':context, 'project':'pyramidapp'}

@@ -13,63 +13,77 @@
 
 <body>
  <form action="/SubmitUserProfile/submit" method="post" id="upro">
-	<p> First Name: <input type="text" name="firstname" id="textfield" required> </p>
-
-  	<p> <label for="email">Last Name:</label>
-  	<input type="text" name="lastname" id="textfield2" required> </p>
-
-	<p> <label for="password">Password:</label>
-	<input type="password" name="password" id="password" required> </p>
 	<p>
-	  <label for="email">Email:</label>
-      <input type="email" name="email" id="email">
+	<label for="textfield">First Name:</label>
+	<input type="text" name="firstname" id="textfield" required>
+
+	<label for="textfield2">Last Name:</label>
+	<input type="text" name="lastname" id="textfield2" required>
+	<br><br>
+
+	<label for="password">Password:</label>
+	<input type="password" name="password" id="password" required>
+	<br><br>
+
+	<label for="email">Email:</label>
+	<input type="email" name="email" id="email">
+	<br><br>
+
+	<label for="tel">Phone:</label>
+	<input type="tel" name="phonenumber" id="tel" required>
 	</p>
-	<p>
-	  <label for="tel">Phone:</label>
-      <input type="tel" name="phonenumber" id="tel" required>
-	</p>
-	<p>Are you a broker or real estate agent? <br>
-	  <label>
-	    <input type="radio" name="agent_q" value="Yes" id="agent_q_0">
-	    Yes</label>
+	  <label for="checkbox">Which event will you attend?</label>
+    <br>
+        <input type="checkbox" name="event_choice" value="Oct-2013-Saturday" id="whichevent_0">
+	    Saturday</label>
 	  <br>
 	  <label>
-	    <input type="radio" name="agent_q" value="No" id="agent_q_1">
-	    No</label>
-    </p>
-   <p>Have you ever been to a land investment seminar?<br>
-     <label>
-       <input type="radio" name="seminar_q" value="Yes" id="seminar_q_0">
-       Yes</label>
-     <br>
-     <label>
-       <input type="radio" name="seminar_q" value="No" id="seminar_q_1">
-       No</label>
-   </p>
-   <p>Have you ever invested on any lands?<br>
-     <label>
-       <input type="radio" name="land_q" value="Yes" id="lands_q_0">
-       Yes</label>
-     <br>
-     <label>
-       <input type="radio" name="land_q" value="No" id="lands_q_1">
-       No</label>
-     <br>
-   If yes,
-     <label for="textfield4">when:</label>
-     <input type="text" name="when" id="textfield3">
- 	  <label for="textfield4">where:</label>  
-     <input type="text" name="where" id="textfield4">
-   </p>
-   <p><br>
- </p>
-    
-	<p> <input type="submit" value="Submit">
-   <input type="reset" value="Reset!"> </p>
+	    <input type="checkbox" name="event_choice" value="Oct-2013-Sunday" id="whichevent_1">
+	    Sunday</label>
+	  <br>
+    <br>
 
-	<p>&nbsp;</p>
-	<p>&nbsp; </p>
- </form>
+	Are you a broker or real estate agent? <br>
+  		<label>
+    		<input type="radio" name="agent_q" value="Yes" id="agent_q_0">
+    		Yes</label>
+  		<br>
+  		<label>
+    		<input type="radio" name="agent_q" value="No" id="agent_q_1">
+    		No</label>
+	<br><br>
+    
+   	Have you ever been to a land investment seminar?<br>
+		<label>
+		<input type="radio" name="seminar_q" value="Yes" id="seminar_q_0">
+		Yes</label>
+		<br>
+		<label>
+		<input type="radio" name="seminar_q" value="No" id="seminar_q_1">
+		No</label>
+	<br><br>
+
+	Have you ever invested on any lands?<br>
+		<label>
+		<input type="radio" name="land_q" value="Yes" id="lands_q_0">
+		Yes</label>
+		<br>
+		<label>
+		<input type="radio" name="land_q" value="No" id="lands_q_1">
+ 		No</label>
+		<br>
+	If yes, 
+	<label for="textfield3">when:</label>
+		<input type="text" name="when" id="textfield3">
+		<label for="textfield4">where:</label>  
+		<input type="text" name="where" id="textfield4">
+	<br><br>
+
+	<input type="submit" value="Submit">
+	<input type="reset" value="Reset!">
+	</p>
+
+</form>
 
 </body>
 </html>
